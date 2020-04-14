@@ -1,0 +1,47 @@
+
+#article{
+    display: grid;
+    grid-template-areas:
+    "left_panel artcl";
+    grid-template-columns: 0.7fr 3fr;
+    grid-template-rows: auto auto;
+    
+    
+    }
+  #artcl{
+    display: grid; 
+    grid-template-columns: repeat(4,1fr);
+    grid-area: artcl;
+    
+    
+  }
+  #left_panel{
+  
+    grid-area: left_panel;
+    
+    
+    
+    border: 2px solid #000;
+    
+    
+    
+  
+  }
+  .photo{
+    width: 100%;
+   
+  }
+  .articles{
+    border: solid 3px lightgrey;
+    
+  } 
+  .lef{
+      
+      box-sizing: border-box;
+  }
+  .hh3{
+      /* width: 500px;  */
+      border: solid 3px lightgrey;
+      word-wrap: break-word;
+         
+  }
