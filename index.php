@@ -26,7 +26,7 @@ $x= pg_connect("host=localhost port=5432 user=postgres password=000000 dbname=po
  }
 
  ?>
- <p><input type="submit" value="Вибрати"></p>szdfgsdgdfhfdghdfgh
+ <p><input type="submit" value="Вибрати"></p>
    </form>
   </div>
   <div id = 'artcl'>
