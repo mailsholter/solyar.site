@@ -15,8 +15,7 @@
 
 </style>
     <?php
-    $ol =pg_connect("host=localhost port=5432 dbname=solyar17_main_bd user= 	
-    solyar17_adm 	 password=kjkszpg2001 options='--client_encoding=UTF8'");
+    $ol =pg_connect("host=localhost port=5432 dbname=solyar17_main_bd user=solyar17  password=n6v0@127uw6 options='--client_encoding=UTF8'");
     $sur= pg_query("select surname from покупці where login = '".$_COOKIE['login']."' and password = '".$_COOKIE['pass']."';");
     $sur = pg_fetch_row($sur);
     if($sur[0]=="Admin"){
@@ -37,51 +36,50 @@
         $z = pg_query("select client_code from покупці where login = '".$_COOKIE['login']."' and password = '".$_COOKIE['pass']."';");
         $z = pg_fetch_row($z);
         $client_code = $z[0];
-        $baza = pg_query("select * from purchase where customer_code = '".$client_code."';");
         $contact = pg_query("select name, surname, phone_number, adress from покупці  where login = '".$_COOKIE['login']."' and password = '".$_COOKIE['pass']."';");
         $contact = pg_fetch_array($contact);
         // $contact = $contact[0];
         for($i= 0;$i<count($contact);$i++){
             echo $contact[$i]."<br>";
         }
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<table cols = '8' id ='tablucya'>";
-        ?>
-            <tr>
-            <th>Бренд</th>
-            <th>Модель</th>
-            <th>Кількість</th>
-            <th>Тип</th>
-            <th>Ціна</th>
-            <th>Код</th>
-            <th>Код покупки</th>
-            <th>Адреса доставки</th>
-            </tr>
-            <?php
-        while($ul = pg_fetch_row($baza)){
-            $ptb =$ul;
-            // var_dump($ptb);
-            
-            
-            for($i= 1;$i<count($ptb);$i++){
-                if($i == 1){
-                    echo "<tr>";
-                }
-                echo "<td>".$ptb[$i]."</td>";
-                if($i+1 == count($ptb)){
-                    echo "</tr>";
-                }
-                
-            }
-            
-        }
-        echo "</table>";
     }
-      ?>
-      </body>
-     </html>
+$zap = pg_query("select * from покупки where код_покупця = '".$client_code."';");
+while ($ogr = pg_fetch_array($zap)){
+    for($k = 0;$k<count($ogr);$k++){
+        if($k == 2){
+            $purchase = explode('|', $ogr[$k]);
+            for($i=0;$i<=count($purchase);$i++){
+                $purchase1 = explode("/", $purchase[$i]);
+                $cod = $purchase1[0];
+                $table_names = pg_query("SELECT table_name FROM information_schema.tables WHERE table_schema NOT IN ('information_schema','pg_catalog') AND table_name!='покупки' AND table_name!='покупці';"); ////получаємо імена всіх таблиць
+                while($m=pg_fetch_row($table_names)){     
+                    if($m[0]!='покупки' || $m[0]!='покупці'){     ////перебираємо імена всіх табшлиць для пошуку по коду
+                        $poshuk=pg_query("select виробник, модель from $m[0] where код = '".$cod."'");
+                        if(pg_fetch_row($poshuk)!=""){
+                            $tbmane=$m[0];
+                            $zapyt = pg_query("select виробник, модель from $tbmane where код =  '".$cod."'");  ////дістаємо інформацію з таблиці по коду                            $zapyt = pg_fetch_row($zapyt);
+                            echo $zapyt[0].'<br>';
+                            echo $zapyt[1].'<br>';
+                            echo $purchase1[0].'<br>';
+                            echo $purchase1[1].'<br>';
+                            echo $purchase1[2].'<br>';
+                        }
+                    }
+                    else{
+                        echo "noooo";
+                        continue;
+                    }
+                }
+            }
+        }
+        else{
+            echo $ogr[$k].'<br>';
+        }
+    }
+}
+?>
+</body>
+</html>
 
      <script>
      new_database.onclick = function baka(){

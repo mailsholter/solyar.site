@@ -6,29 +6,52 @@
     <title>Document</title>
 </head>
 <body>
-<?php
-$diag=6.0;
-$x = pg_connect("host=localhost port=5432 dbname=solyar17_main_bd user= 	
-solyar17_adm 	 password=kjkszpg2001 options='--client_encoding=UTF8'");
-$z = pg_query("select regexp_matches(опис,'(eкран)(\:\s\d)(\.\d|\d|)'), модель  from refrigerator");
-while($string = pg_fetch_row($z)){
-  $str =$string[0];
-  $str = (double)preg_replace('/[^0-9 .]/','', $str);
-  if($str>=$diag){
-    $brand = "'".$string[1]."'";  
-    $l= pg_query("select * from allstorage where модель =$brand;");
-      while($strichka = pg_fetch_row($l)){
-        for ($i=0;$i<count($strichka);$i++){
-          echo $strichka[$i]." ";
+  <p id="exit"></p>
+  <button value="Refresh Page" onClick="window.location.reload();">кнопка</button>
+<script>
+let frma = document.createElement('form');
+frma.enctype="multipart/form-data";
+frma.method="post";
+frma.innerHTML = '<a class = "type">create table</a><br><a class = "type">shange smth in table</a><br><a class = "type">insert into table</a><br><a class = "type">convert into svc</a><br><a class = "type">import</a><br><a class = "type">change name</a><a class = "type">test mail</a>';
+document.body.append(frma);
+var conn = undefined;
+let type = document.querySelectorAll(".type");
+var vybir = undefined;
+for (let elem of type){
+    elem.onclick = function del(){
+        
+      vybir = elem.innerHTML; 
+      frma.remove();
+        let form = document.createElement('form');
+        form.action="";
+        form.enctype="multipart/form-data";
+        form.method="post";
+        form.id = "forma";
+        var table_name = new XMLHttpRequest();
+        table_name.open('POST','tbb_namee.php',false);
+        var body = "val=1";
+        table_name.addEventListener('readystatechange', function(){
+        if ((table_name.readyState==4) && (table_name.status==200)){
+                form.innerHTML = table_name.responseText;
+            }
         }
-        echo "<br>";
-      } 
-  }
-  echo "<br>";
+    );
+    table_name.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    table_name.send(body);
+    document.body.prepend(form);
+    conn = document.querySelectorAll(".tb_name");
+    forma.insertAdjacentHTML('beforeend', '<input id ="knopka" onclick = "knpk()" type = "submit"></input>');
+    
+    }
 }
-?>
-<form action='index.php'>
-  <button>На головну</button>
-</form>
+function baka(){
+    alert(this.value);
+}
+function knpk(){
+    forma.remove();
+    exit.innerHTML = vybir;
+    
+};
+</script>
 </body>
 </html>
