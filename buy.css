@@ -1,0 +1,17 @@
+/* #head{
+    display: grid;
+    grid-template-columns:0.5fr, 0.5fr;
+    grid-template-rows: 0.5fr,4fr;
+    grid-template-areas:
+    "under_head under_head",
+    "else else";
+    background-color: rgb(69, 141, 117);
+}
+#under_head{
+    background-color: aqua;
+    grid-area: under_head;
+}
+#else{
+    background-color: blue;
+    grid-area: else;
+} */

@@ -3,33 +3,30 @@
     display: grid;
     grid-template-areas:
     "left_panel artcl";
-    grid-template-columns: 0.7fr 3fr;
+    grid-template-columns: 1fr 5fr;
     grid-template-rows: auto auto;
+    }
+    input:invalid {
+      border: 1px solid red;
+    }
     
-    
+    input:valid {
+      border: 1px solid green;
     }
   #artcl{
     display: grid; 
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(5,1fr);
     grid-area: artcl;
-    
-    
   }
   #left_panel{
-  
     grid-area: left_panel;
-    
-    
-    
     border: 2px solid #000;
-    
-    
-    
-  
   }
   .photo{
-    width: 100%;
-   
+    height:200px;
+    width:90%;
+    object-fit: scale-down; 
+    text-align: center;
   }
   .articles{
     border: solid 3px lightgrey;
@@ -45,3 +42,123 @@
       word-wrap: break-word;
          
   }
+  .but_buy:onclick{
+    background:red;
+  }
+  /*.namemodel{*/
+  /*  text-align: center;*/
+  /*  margin-bottom: -15px;*/
+  /*  line-height: 0.9;*/
+  /*}*/
+  #main_panel{
+    background-color: saddlebrown;
+    /* height:60px; */
+  }
+  #login{
+    text-align: right;
+    float: right;
+  }
+  #exit{
+    text-align: right;
+  }
+  #register{
+    float: right;
+    text-align: right;
+    margin-left:5px;
+  }
+  .form_item:hover{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    background-color:wheat;
+    }
+  .form_item{
+    /*text-align: center;*/
+    margin-top: 40px;
+  }
+
+
+
+ /* копіпаста */
+/* ТОП МЕНЮ */
+
+
+
+
+nav {
+  text-align: center;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+nav a {
+  text-decoration: none;
+  display: block;
+  color: #222;
+}
+.top_menu > li {
+  display: inline-block;
+  position: relative;
+}
+.top_menu > li > a {
+  position: relative;
+  padding: 10px 15px;
+  font-family: 'Kaushan Script', cursive;
+  font-size: 1.5em;
+  line-height: 1;
+  letter-spacing: 3px;
+}
+.top_menu > li > a:before {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 100%;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  transition: .3s;
+}
+.top_menu li:hover a:before {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+.submenu {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 100%;
+  width: 150px;
+  padding: 15px 0 15px;
+  margin-top: 5px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 30px rgba(0,0,0,.2);
+  box-sizing: border-box; 
+  visibility: hidden; 
+  opacity: 0;
+  transform: translate(-50%, 20px);
+  transition: .3s;
+}
+.top_menu > li:hover .submenu {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.submenu a {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+  transition: .3s linear;
+}
+.submenu a:hover {background: #e8e8e8;}
+
+
+
+

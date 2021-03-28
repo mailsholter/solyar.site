@@ -6,59 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-$table_name = $_POST['table_name'];
-//echo $table_name;
-$img = $_FILES['imag'];
-// echo count($img['name']);
-
-//var_dump($img["name"]);
-//$array = array();
-$papka = $_POST['model'];
-if (file_exists("img/$table_name")) {
-     echo "Така папка вже існує)  ";
- } else {
-    $mkdir = mkdir("img/$table_name");
+<?php
+$x= pg_connect("host=localhost port=5432 dbname=solyar17_main_bd user=solyar17  password=n6v0@127uw6 options='--client_encoding=UTF8'");
+$tbb_name = pg_query("select column_name from information_schema.columns where table_name = '".$_POST['table_name']."';");
+$value = "";
+$table_name = "";
+while($elem = pg_fetch_row($tbb_name)){
+    $value.="'".$_POST[$elem[0]]."', ";
+    $table_name.=$elem[0].", ";
 }
-if(file_exists("img/$table_name/$papka")){
-    echo "І таке вже є  ";
+$value= trim($value, ", ");
+$table_name = trim($table_name,", ");
+echo "insert into ".$_POST['table_name']."($table_name) values($value);"."<br>";
+$vidpr = pg_query("insert into ".$_POST['table_name']."($table_name) values($value);");
+if($vidpr){
+    echo "done";
+}else{
+    echo pg_last_error();
+    echo "not done";
 }
-else{
-    $mkdir = mkdir("img/$table_name/$papka");
-}
-$file_count = count($img["name"]);
-for ($i = 0;$i<count($img['name']);$i++){
-    $newname = $_POST['model'].'-'.$i.'.jpg';   
-    move_uploaded_file($img ['tmp_name'][$i],'img/'.$table_name.'/'.$papka.'/'.$newname);
-    $path = 'img/'.$table_name.'/'.$papka.'/'.$newname;
-    $array[$i] = $path;
-}
-// echo $_POST['table_names'];
-
-
-$array = implode(',',$array);
-// echo $array.'</br>';
-// $i=0;
-//Загружаєм файли на сервер
-$b = $_POST['brand'];
-$x= pg_connect("host=localhost port=5432 user=postgres password=000000 dbname=postgres options='--client_encoding=UTF8'");
-if(!$x){
-	die("PostgreSQL connection failed");
-}
-echo "PostgreSQL connected successfully";
-
-
-    
-
-pg_set_client_encoding($x,"UTF-8");
-$vidpravka = pg_query("INSERT INTO $table_name (brand, model, number, price, discription, type,img,code) 
-VALUES ('".$_POST['brand']."',  '".$_POST['model']."', '".$_POST['number']."', '".$_POST['price']."', '".
-$_POST['discription']."', '".$_POST['type']."',   '{".$array."}','".$_POST['code']."');");
-// $select = pg_query("select img from mobile_phone where mb_id = 53;");
-// $select = pg_fetch_row($select);
-// $select=trim($select[0]," {}[]\"");
-// $select=(explode(',',$select));
-// var_dump(count($select));
 ?>
 </body>
 </html>
